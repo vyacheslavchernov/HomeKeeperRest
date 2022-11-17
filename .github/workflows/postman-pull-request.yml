@@ -1,11 +1,18 @@
-name: Automated API tests using Postman CLI
+name: Postman CLI Auto-testing
 
-on: push
+on:
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
   automated-api-tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for build and deploy...
+          run: sleep 120s
+          shell: bash
       - uses: actions/checkout@v3
       - name: Install Postman CLI
         run: |
