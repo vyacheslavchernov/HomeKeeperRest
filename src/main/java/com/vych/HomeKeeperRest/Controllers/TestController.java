@@ -3,7 +3,7 @@ package com.vych.HomeKeeperRest.Controllers;
 import com.vych.HomeKeeperRest.ApiCore.ApiResponse;
 import com.vych.HomeKeeperRest.ApiCore.Status;
 import com.vych.HomeKeeperRest.ApiCore.StatusCode;
-import com.vych.HomeKeeperRest.ApiCore.StringPayload;
+import com.vych.HomeKeeperRest.ApiCore.Payloads.StringPayload;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
+    //TODO: Заменить на echo запрос
     @GetMapping("api/test")
     public ApiResponse testMethod() {
         return new ApiResponse()

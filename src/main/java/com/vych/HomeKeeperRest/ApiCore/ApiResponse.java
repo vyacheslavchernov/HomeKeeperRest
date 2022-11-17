@@ -1,6 +1,7 @@
 package com.vych.HomeKeeperRest.ApiCore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
 
 /**
  * Базовый класс для ответов API.

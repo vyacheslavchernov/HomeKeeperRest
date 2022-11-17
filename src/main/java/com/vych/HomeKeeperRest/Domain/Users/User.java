@@ -1,6 +1,7 @@
-package com.vych.HomeKeeperRest.Domain;
+package com.vych.HomeKeeperRest.Domain.Users;
 
-import com.vych.HomeKeeperRest.ApiCore.ResponsePayload;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
 
 import javax.persistence.*;
 
@@ -15,15 +16,28 @@ public class User implements ResponsePayload {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonProperty("firstName")
     private String firstName;
+
+    @JsonProperty("lastName")
     private String lastName;
 
+    @JsonProperty("email")
     private String email;
 
+    @JsonProperty("username")
     private String username;
+
+    @JsonProperty("password")
     private String password;
 
+    @JsonProperty("enabled")
     private boolean enabled;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "authorities_username", unique = true, nullable = false)
+    @JsonProperty("role")
+    private Role role;
 
     public Long getId() {
         return id;
@@ -80,6 +94,15 @@ public class User implements ResponsePayload {
 
     public User setEnabled(boolean enabled) {
         this.enabled = enabled;
+        return this;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public User setRole(Role role) {
+        this.role = role;
         return this;
     }
 }

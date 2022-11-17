@@ -2,6 +2,7 @@ package com.vych.HomeKeeperRest.ApiCore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +38,16 @@ public class Status {
 
     public Status setErrors(List<Error> errors) {
         this.errors = errors;
+        return this;
+    }
+
+    public Status addError(Error error) {
+        if (this.errors == null) {
+            this.errors = new ArrayList<>();
+        }
+
+        this.errors.add(error);
+
         return this;
     }
 }
