@@ -1,10 +1,15 @@
 package com.vych.HomeKeeperRest.Domain;
 
+import com.vych.HomeKeeperRest.ApiCore.ResponsePayload;
+
 import javax.persistence.*;
 
+/**
+ * Данные о ролях пользователей
+ */
 @Entity(name = "authorities")
 @Table(name = "authorities")
-public class Role {
+public class Role implements ResponsePayload {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
