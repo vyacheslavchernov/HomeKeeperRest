@@ -1,11 +1,11 @@
-package com.vych.HomeKeeperRest.ApiCore;
+package com.vych.HomeKeeperRest.ApiCore.Payloads;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Базовая полезная нагрузка для ответа.
+ * Текстовая полезная нагрузка для ответа.
  */
-public class StringPayload implements ResponsePayload{
+public class StringPayload implements ResponsePayload {
     @JsonProperty("message")
     private String message;
 

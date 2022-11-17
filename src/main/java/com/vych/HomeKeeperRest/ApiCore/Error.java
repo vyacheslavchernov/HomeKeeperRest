@@ -10,6 +10,24 @@ public class Error {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("stack")
-    private String stack;
+    @JsonProperty("trace")
+    private String trace;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Error setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public String getTrace() {
+        return trace;
+    }
+
+    public Error setTrace(String trace) {
+        this.trace = trace;
+        return this;
+    }
 }

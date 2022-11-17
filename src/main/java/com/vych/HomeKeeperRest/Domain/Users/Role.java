@@ -1,6 +1,7 @@
-package com.vych.HomeKeeperRest.Domain;
+package com.vych.HomeKeeperRest.Domain.Users;
 
-import com.vych.HomeKeeperRest.ApiCore.ResponsePayload;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
 
 import javax.persistence.*;
 
@@ -12,16 +13,11 @@ import javax.persistence.*;
 public class Role implements ResponsePayload {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    @JsonProperty("username")
     private String username;
+
+    @JsonProperty("authority")
     private String authority;
-
-
-    public Long getId() {
-        return id;
-    }
 
     public String getName() {
         return username;
