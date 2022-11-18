@@ -1,6 +1,8 @@
 package com.vych.HomeKeeperRest.ApiCore.Payloads;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.vych.HomeKeeperRest.Domain.Views;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 public class ListPayload implements ResponsePayload{
 
     @JsonProperty("items")
+    @JsonView(Views.AllData.class)
     private List<Object> listOfPayload;
 
     public List<Object> getListOfPayload() {

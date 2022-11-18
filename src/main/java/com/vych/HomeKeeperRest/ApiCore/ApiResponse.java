@@ -1,7 +1,9 @@
 package com.vych.HomeKeeperRest.ApiCore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
+import com.vych.HomeKeeperRest.Domain.Views;
 
 /**
  * Базовый класс для ответов API.
@@ -11,9 +13,11 @@ import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
 public class ApiResponse {
 
     @JsonProperty("status")
+    @JsonView(Views.AllData.class)
     private Status status;
 
     @JsonProperty("payload")
+    @JsonView(Views.AllData.class)
     private ResponsePayload payload;
 
     public Status getStatus() {
