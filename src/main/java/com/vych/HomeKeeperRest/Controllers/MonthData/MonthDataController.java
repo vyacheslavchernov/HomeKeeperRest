@@ -8,7 +8,10 @@ import com.vych.HomeKeeperRest.ApiCore.Payloads.StringPayload;
 import com.vych.HomeKeeperRest.Controllers.MonthData.RequestBody.Month;
 import com.vych.HomeKeeperRest.Domain.MonthData.AdditionalData;
 import com.vych.HomeKeeperRest.Domain.MonthData.MonthData;
-import com.vych.HomeKeeperRest.Repo.MonthDataRepo;
+import com.vych.HomeKeeperRest.Repo.MonthData.AdditionalDataRepo;
+import com.vych.HomeKeeperRest.Repo.MonthData.CountersDataRepo;
+import com.vych.HomeKeeperRest.Repo.MonthData.MonthDataRepo;
+import com.vych.HomeKeeperRest.Repo.MonthData.TariffsDataRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +27,21 @@ public class MonthDataController {
     private final String CONTROLLER_ENDPOINT = "api/monthdata/";
 
     private final MonthDataRepo MONTH_DATA_REPO;
+    private final CountersDataRepo COUNTERS_DATA_REPO;
+    private final TariffsDataRepo TARIFFS_DATA_REPO;
+    private final AdditionalDataRepo ADDITIONAL_DATA_REPO;
 
     @Autowired
-    public MonthDataController(MonthDataRepo monthDataRepo) {
+    public MonthDataController(
+            MonthDataRepo monthDataRepo,
+            CountersDataRepo countersDataRepo,
+            TariffsDataRepo tariffsDataRepo,
+            AdditionalDataRepo additionalDataRepo
+    ) {
         this.MONTH_DATA_REPO = monthDataRepo;
+        this.COUNTERS_DATA_REPO = countersDataRepo;
+        this.TARIFFS_DATA_REPO = tariffsDataRepo;
+        this.ADDITIONAL_DATA_REPO = additionalDataRepo;
     }
 
 
@@ -152,27 +166,44 @@ public class MonthDataController {
             );
         }
 
-        //TODO: Добавить проверку на существование записи о тарифах по аналогии с записью о месяце
         if (monthData.getTariffsData().getId() == null) {
             return ResponseUtil.buildError(
                     new IncorrectData("Не заполнен id для тарифов"),
                     "Не удалось обновить данные за месяц"
             );
         }
+        if (TARIFFS_DATA_REPO.findById(monthData.getTariffsData().getId()).orElse(null) == null) {
+            return ResponseUtil.buildError(
+                    new IncorrectData("Тарифов с id " + monthData.getTariffsData().getId() + " не существует"),
+                    "Не удалось обновить данные за месяц"
+            );
+        }
 
-        //TODO: Добавить проверку на существование записи о счётчиках по аналогии с записью о месяце
+
         if (monthData.getCountersData().getId() == null) {
             return ResponseUtil.buildError(
                     new IncorrectData("Не заполнен id для счётчиков"),
                     "Не удалось обновить данные за месяц"
             );
         }
+        if (COUNTERS_DATA_REPO.findById(monthData.getCountersData().getId()).orElse(null) == null) {
+            return ResponseUtil.buildError(
+                    new IncorrectData("Показателей счётчиков с id " + monthData.getCountersData().getId() + " не существует"),
+                    "Не удалось обновить данные за месяц"
+            );
+        }
 
-        //TODO: Добавить проверку на существование записи с доп. информацией по аналогии с записью о месяце
         for(AdditionalData data : monthData.getAdditionalData()) {
             if (data.getId() == null) {
                 return ResponseUtil.buildError(
                         new IncorrectData("Не заполнен id для одного или нескольких блоков с доп. данными"),
+                        "Не удалось обновить данные за месяц"
+                );
+            }
+
+            if (ADDITIONAL_DATA_REPO.findById(data.getId()).orElse(null) == null) {
+                return ResponseUtil.buildError(
+                        new IncorrectData("Поля доп. информации с id " + data.getId() + " не существует"),
                         "Не удалось обновить данные за месяц"
                 );
             }

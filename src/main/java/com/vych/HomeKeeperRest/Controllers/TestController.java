@@ -5,6 +5,7 @@ import com.vych.HomeKeeperRest.ApiCore.Status;
 import com.vych.HomeKeeperRest.ApiCore.StatusCode;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.StringPayload;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,11 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    //TODO: Заменить на echo запрос
-    @GetMapping("api/test")
-    public ApiResponse testMethod() {
+    @GetMapping("api/echo")
+    public ApiResponse testMethod(@RequestParam String msg) {
         return new ApiResponse()
                 .setStatus(new Status().setCode(StatusCode.SUCCESS))
-                .setPayload(new StringPayload().setMessage("All works fine!"));
+                .setPayload(new StringPayload().setMessage(msg));
     }
 }

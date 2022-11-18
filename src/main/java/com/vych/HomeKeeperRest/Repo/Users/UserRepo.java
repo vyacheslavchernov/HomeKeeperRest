@@ -1,4 +1,4 @@
-package com.vych.HomeKeeperRest.Repo;
+package com.vych.HomeKeeperRest.Repo.Users;
 
 import com.vych.HomeKeeperRest.Domain.Users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
