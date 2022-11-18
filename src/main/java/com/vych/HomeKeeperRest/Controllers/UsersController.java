@@ -9,7 +9,7 @@ import com.vych.HomeKeeperRest.ApiCore.Status;
 import com.vych.HomeKeeperRest.ApiCore.StatusCode;
 import com.vych.HomeKeeperRest.Domain.Users.User;
 import com.vych.HomeKeeperRest.Domain.Views;
-import com.vych.HomeKeeperRest.Repo.UserRepo;
+import com.vych.HomeKeeperRest.Repo.Users.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

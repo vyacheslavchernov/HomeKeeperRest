@@ -1,4 +1,4 @@
-package com.vych.HomeKeeperRest.Repo;
+package com.vych.HomeKeeperRest.Repo.MonthData;
 
 import com.vych.HomeKeeperRest.Domain.MonthData.MonthData;
 import org.springframework.data.jpa.repository.JpaRepository;
