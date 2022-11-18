@@ -1,7 +1,9 @@
 package com.vych.HomeKeeperRest.Domain.Users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
+import com.vych.HomeKeeperRest.Domain.Views;
 
 import javax.persistence.*;
 
@@ -17,6 +19,7 @@ public class Role implements ResponsePayload {
     private String username;
 
     @JsonProperty("authority")
+    @JsonView(Views.AllData.class)
     private String authority;
 
     public String getName() {

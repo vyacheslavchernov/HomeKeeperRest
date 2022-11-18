@@ -1,6 +1,8 @@
 package com.vych.HomeKeeperRest.ApiCore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.vych.HomeKeeperRest.Domain.Views;
 
 /**
  * Класс-обёртка ошибок.
@@ -8,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Error {
 
     @JsonProperty("description")
+    @JsonView(Views.AllData.class)
     private String description;
 
     @JsonProperty("trace")
+    @JsonView(Views.AllData.class)
     private String trace;
 
     public String getDescription() {
