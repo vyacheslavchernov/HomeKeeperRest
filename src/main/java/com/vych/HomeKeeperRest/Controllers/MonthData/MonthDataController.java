@@ -107,6 +107,39 @@ public class MonthDataController {
         }
     }
 
+    @GetMapping(CONTROLLER_ENDPOINT + "getprev")
+    public ApiResponse getPrevMonthData(@RequestParam(required = false) Long id) {
+        if (id != null) {
+            MonthData monthData = MONTH_DATA_REPO.findById(id).orElse(null);
+            if (monthData == null) {
+                return ResponseUtil.buildError(
+                        new IncorrectData("Не найдено месяца с id " + id),
+                        "Не удалось получить данные за месяц до месяца с id " + id
+                );
+            } else {
+                int month = monthData.getMonth() - 1;
+                int year = month == 0 ? monthData.getYear() - 1 : monthData.getYear();
+                month = month == 0 ? 12 : month;
+
+                monthData = MONTH_DATA_REPO.findByMonthAndYear(month, year).orElse(null);
+
+                if (monthData == null) {
+                    return ResponseUtil.buildError(
+                            new IncorrectData("Не найдено предыдущего месяца для месяца с id " + id),
+                            "Не удалось получить данные за месяц до месяца с id " + id
+                    );
+                }
+
+                return new ApiResponse().setStatus(new Status().setCode(StatusCode.SUCCESS)).setPayload(monthData);
+            }
+        } else {
+            return ResponseUtil.buildError(
+                    new IncorrectData("Не был передан id месяца для которого нужно найти предыдущий месяц"),
+                    "Не удалось получить данные за предыдущий месяц"
+            );
+        }
+    }
+
     @PostMapping(CONTROLLER_ENDPOINT + "add")
     public ApiResponse addNewMonthData(@RequestBody MonthData monthData) {
         try {
