@@ -7,6 +7,7 @@ import com.vych.HomeKeeperRest.ApiCore.Payloads.ListPayload;
 import com.vych.HomeKeeperRest.ApiCore.ResponseUtil;
 import com.vych.HomeKeeperRest.ApiCore.Status;
 import com.vych.HomeKeeperRest.ApiCore.StatusCode;
+import com.vych.HomeKeeperRest.Aspects.Annotations.NeedLogs;
 import com.vych.HomeKeeperRest.Domain.Users.User;
 import com.vych.HomeKeeperRest.Domain.Views;
 import com.vych.HomeKeeperRest.Repo.Users.UserRepo;
@@ -28,6 +29,7 @@ public class UsersController {
         this.USER_REPO = userRepo;
     }
 
+    @NeedLogs
     @JsonView(Views.NonSensitiveData.class)
     @GetMapping(CONTROLLER_ENDPOINT + "get")
     public ApiResponse getUser(@RequestParam String username) {
@@ -49,6 +51,7 @@ public class UsersController {
         }
     }
 
+    @NeedLogs
     @JsonView(Views.NonSensitiveData.class)
     @GetMapping(CONTROLLER_ENDPOINT + "getall")
     public ApiResponse getAllUsers() {
@@ -65,6 +68,7 @@ public class UsersController {
                 .setPayload(new ListPayload().setListOfPayload(Collections.singletonList(users)));
     }
 
+    @NeedLogs
     @PostMapping(CONTROLLER_ENDPOINT + "add")
     public ApiResponse addUser(@RequestBody User user) {
         if (USER_REPO.findByUsername(user.getUsername()).orElse(null) != null) {
@@ -83,6 +87,7 @@ public class UsersController {
         return ResponseUtil.buildSuccess();
     }
 
+    @NeedLogs
     @PostMapping(CONTROLLER_ENDPOINT + "delete")
     public ApiResponse deleteUser(@RequestParam String username) {
         User user = USER_REPO.findByUsername(username).orElse(null);
@@ -102,6 +107,7 @@ public class UsersController {
         return ResponseUtil.buildSuccess();
     }
 
+    @NeedLogs
     @PostMapping(CONTROLLER_ENDPOINT + "update")
     public ApiResponse updateUser(@RequestBody User userdata) {
         User user = USER_REPO.findByUsername(userdata.getUsername()).orElse(null);

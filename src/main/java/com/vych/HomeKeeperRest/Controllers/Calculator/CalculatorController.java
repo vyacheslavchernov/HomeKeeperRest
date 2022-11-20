@@ -6,6 +6,7 @@ import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
 import com.vych.HomeKeeperRest.ApiCore.ResponseUtil;
 import com.vych.HomeKeeperRest.ApiCore.Status;
 import com.vych.HomeKeeperRest.ApiCore.StatusCode;
+import com.vych.HomeKeeperRest.Aspects.Annotations.NeedLogs;
 import com.vych.HomeKeeperRest.Controllers.Calculator.ResponseBody.Calculation;
 import com.vych.HomeKeeperRest.Controllers.Calculator.ResponseBody.Communal;
 import com.vych.HomeKeeperRest.Controllers.MonthData.MonthDataController;
@@ -43,6 +44,7 @@ public class CalculatorController {
         );
     }
 
+    @NeedLogs
     @GetMapping(CONTROLLER_ENDPOINT + "calc")
     public ApiResponse getCalculation(@RequestParam(required = false) Long id) {
         if (id != null) {
@@ -56,11 +58,7 @@ public class CalculatorController {
                         "Не удалось получить расчёт за месяц с id " + id
                 );
             } else {
-                int month = monthData.getMonth() - 1;
-                int year = month == 0 ? monthData.getYear() - 1 : monthData.getYear();
-                month = month == 0 ? 12 : month;
-
-                tempPayload = MONTH_DATA_CONTROLLER.getMonthData(null, month, year).getPayload();
+                tempPayload = MONTH_DATA_CONTROLLER.getPrevMonthData(id).getPayload();
                 prevMonthData = tempPayload instanceof MonthData ? (MonthData) tempPayload : null;
 
                 if (prevMonthData == null) {
