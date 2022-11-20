@@ -5,6 +5,7 @@ import com.vych.HomeKeeperRest.ApiCore.Exceptions.IncorrectData;
 import com.vych.HomeKeeperRest.ApiCore.Exceptions.InternalError;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ListPayload;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.StringPayload;
+import com.vych.HomeKeeperRest.Aspects.Annotations.NeedLogs;
 import com.vych.HomeKeeperRest.Controllers.MonthData.RequestBody.Month;
 import com.vych.HomeKeeperRest.Domain.MonthData.AdditionalData;
 import com.vych.HomeKeeperRest.Domain.MonthData.MonthData;
@@ -44,7 +45,7 @@ public class MonthDataController {
         this.ADDITIONAL_DATA_REPO = additionalDataRepo;
     }
 
-
+    @NeedLogs
     @GetMapping(CONTROLLER_ENDPOINT + "getall")
     public ApiResponse getAllMonthData() {
         ArrayList<MonthData> monthData;
@@ -60,6 +61,7 @@ public class MonthDataController {
                 .setPayload(new ListPayload().setListOfPayload(Collections.singletonList(monthData)));
     }
 
+    @NeedLogs
     @GetMapping(CONTROLLER_ENDPOINT + "get")
     public ApiResponse getMonthData(
             @RequestParam(required = false) Long id,
@@ -94,6 +96,7 @@ public class MonthDataController {
         }
     }
 
+    @NeedLogs
     @GetMapping(CONTROLLER_ENDPOINT + "getlast")
     public ApiResponse getLastMonthData() {
         MonthData monthData = MONTH_DATA_REPO.findLastMonth().orElse(null);
@@ -107,6 +110,7 @@ public class MonthDataController {
         }
     }
 
+    @NeedLogs
     @GetMapping(CONTROLLER_ENDPOINT + "getprev")
     public ApiResponse getPrevMonthData(@RequestParam(required = false) Long id) {
         if (id != null) {
@@ -140,6 +144,7 @@ public class MonthDataController {
         }
     }
 
+    @NeedLogs
     @PostMapping(CONTROLLER_ENDPOINT + "add")
     public ApiResponse addNewMonthData(@RequestBody MonthData monthData) {
         try {
@@ -151,6 +156,7 @@ public class MonthDataController {
         return ResponseUtil.buildSuccess();
     }
 
+    @NeedLogs
     @PostMapping(CONTROLLER_ENDPOINT + "delete")
     public ApiResponse deleteMonthData(@RequestBody Month month) {
         if (month.getId() != null) {
@@ -183,6 +189,7 @@ public class MonthDataController {
         return ResponseUtil.buildSuccess();
     }
 
+    @NeedLogs
     @PostMapping(CONTROLLER_ENDPOINT + "update")
     public ApiResponse updateMonthData(@RequestBody MonthData monthData) {
         if (monthData.getId() == null) {
