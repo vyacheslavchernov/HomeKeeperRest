@@ -25,9 +25,11 @@ public class LogEntity implements ResponsePayload {
     @JsonProperty("timestamp")
     private String timestamp;
 
+    @Column(length = 10000)
     @JsonProperty("requesBody")
     private String requestBody;
 
+    @Column(length = 10000)
     @JsonProperty("response")
     private String response;
 
