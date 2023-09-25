@@ -1,7 +1,11 @@
 package com.vych.HomeKeeperRest.Controllers.MonthData.RequestBody;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
+@Data
+@Accessors(chain = true)
 public class Month {
     @JsonProperty("id")
     private Long id;
@@ -11,31 +15,4 @@ public class Month {
 
     @JsonProperty("year")
     private Integer year;
-
-    public Long getId() {
-        return id;
-    }
-
-    public Month setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public Integer getMonth() {
-        return month;
-    }
-
-    public Month setMonth(Integer month) {
-        this.month = month;
-        return this;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public Month setYear(Integer year) {
-        this.year = year;
-        return this;
-    }
 }

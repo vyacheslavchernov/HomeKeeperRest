@@ -1,10 +1,13 @@
 package com.vych.HomeKeeperRest.Controllers.MonthData;
 
-import com.vych.HomeKeeperRest.ApiCore.*;
+import com.vych.HomeKeeperRest.ApiCore.ApiResponse;
 import com.vych.HomeKeeperRest.ApiCore.Exceptions.IncorrectData;
 import com.vych.HomeKeeperRest.ApiCore.Exceptions.InternalError;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ListPayload;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.StringPayload;
+import com.vych.HomeKeeperRest.ApiCore.ResponseUtil;
+import com.vych.HomeKeeperRest.ApiCore.Status;
+import com.vych.HomeKeeperRest.ApiCore.StatusCode;
 import com.vych.HomeKeeperRest.Controllers.MonthData.RequestBody.Month;
 import com.vych.HomeKeeperRest.Domain.MonthData.AdditionalData;
 import com.vych.HomeKeeperRest.Domain.MonthData.MonthData;
@@ -23,27 +26,16 @@ import java.util.Collections;
  */
 @RestController
 public class MonthDataController {
-
     private final String CONTROLLER_ENDPOINT = "api/monthdata/";
 
-    private final MonthDataRepo MONTH_DATA_REPO;
-    private final CountersDataRepo COUNTERS_DATA_REPO;
-    private final TariffsDataRepo TARIFFS_DATA_REPO;
-    private final AdditionalDataRepo ADDITIONAL_DATA_REPO;
-
     @Autowired
-    public MonthDataController(
-            MonthDataRepo monthDataRepo,
-            CountersDataRepo countersDataRepo,
-            TariffsDataRepo tariffsDataRepo,
-            AdditionalDataRepo additionalDataRepo
-    ) {
-        this.MONTH_DATA_REPO = monthDataRepo;
-        this.COUNTERS_DATA_REPO = countersDataRepo;
-        this.TARIFFS_DATA_REPO = tariffsDataRepo;
-        this.ADDITIONAL_DATA_REPO = additionalDataRepo;
-    }
-
+    private MonthDataRepo MONTH_DATA_REPO;
+    @Autowired
+    private CountersDataRepo COUNTERS_DATA_REPO;
+    @Autowired
+    private TariffsDataRepo TARIFFS_DATA_REPO;
+    @Autowired
+    private AdditionalDataRepo ADDITIONAL_DATA_REPO;
 
     @GetMapping(CONTROLLER_ENDPOINT + "getall")
     public ApiResponse getAllMonthData() {
@@ -68,7 +60,7 @@ public class MonthDataController {
     ) {
         if (id != null) {
             MonthData monthData = MONTH_DATA_REPO.findById(id).orElse(null);
-            if (monthData == null ) {
+            if (monthData == null) {
                 return ResponseUtil.buildError(
                         new IncorrectData("Не найдено месяца с id " + id),
                         "Не удалось получить данные за месяц"
@@ -78,7 +70,7 @@ public class MonthDataController {
             }
         } else if (month != null && year != null) {
             MonthData monthData = MONTH_DATA_REPO.findByMonthAndYear(month, year).orElse(null);
-            if (monthData == null ) {
+            if (monthData == null) {
                 return ResponseUtil.buildError(
                         new IncorrectData("Не найдено данных по паре месяц-год " + month + "-" + year),
                         "Не удалось получить данные за месяц"
@@ -97,7 +89,7 @@ public class MonthDataController {
     @GetMapping(CONTROLLER_ENDPOINT + "getlast")
     public ApiResponse getLastMonthData() {
         MonthData monthData = MONTH_DATA_REPO.findLastMonth().orElse(null);
-        if (monthData == null ) {
+        if (monthData == null) {
             return ResponseUtil.buildError(
                     new InternalError("Не удалось корректно выполнить запрос к БД для получения последнего месяца (Месяц не найден)"),
                     "Не удалось получить данные за последний месяц"
@@ -155,7 +147,7 @@ public class MonthDataController {
     public ApiResponse deleteMonthData(@RequestBody Month month) {
         if (month.getId() != null) {
             MonthData monthData = MONTH_DATA_REPO.findById(month.getId()).orElse(null);
-            if (monthData == null ) {
+            if (monthData == null) {
                 return ResponseUtil.buildError(
                         new IncorrectData("Не найдено месяца с id " + month.getId()),
                         "Не удалось удалить данные за месяц"
@@ -165,7 +157,7 @@ public class MonthDataController {
             }
         } else if (month.getMonth() != null && month.getYear() != null) {
             MonthData monthData = MONTH_DATA_REPO.findByMonthAndYear(month.getMonth(), month.getYear()).orElse(null);
-            if (monthData == null ) {
+            if (monthData == null) {
                 return ResponseUtil.buildError(
                         new IncorrectData("Не найдено данных по паре месяц-год " + month.getMonth() + "-" + month.getYear()),
                         "Не удалось удалить данные за месяц"
@@ -226,7 +218,7 @@ public class MonthDataController {
             );
         }
 
-        for(AdditionalData data : monthData.getAdditionalData()) {
+        for (AdditionalData data : monthData.getAdditionalData()) {
             if (data.getId() == null) {
                 return ResponseUtil.buildError(
                         new IncorrectData("Не заполнен id для одного или нескольких блоков с доп. данными"),

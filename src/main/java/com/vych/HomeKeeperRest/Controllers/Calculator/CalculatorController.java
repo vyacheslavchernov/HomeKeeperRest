@@ -26,22 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class CalculatorController {
     private final String CONTROLLER_ENDPOINT = "api/calculator/";
 
-    private final MonthDataController MONTH_DATA_CONTROLLER;
-
     @Autowired
-    public CalculatorController(
-            MonthDataRepo monthDataRepo,
-            CountersDataRepo countersDataRepo,
-            TariffsDataRepo tariffsDataRepo,
-            AdditionalDataRepo additionalDataRepo
-    ) {
-        MONTH_DATA_CONTROLLER = new MonthDataController(
-                monthDataRepo,
-                countersDataRepo,
-                tariffsDataRepo,
-                additionalDataRepo
-        );
-    }
+    private MonthDataController MONTH_DATA_CONTROLLER;
+    @Autowired
+    private MonthDataRepo monthDataRepo;
+    @Autowired
+    private CountersDataRepo countersDataRepo;
+    @Autowired
+    private TariffsDataRepo tariffsDataRepo;
+    @Autowired
+    private AdditionalDataRepo additionalDataRepo;
 
     @GetMapping(CONTROLLER_ENDPOINT + "calc")
     public ApiResponse getCalculation(@RequestParam(required = false) Long id) {
@@ -56,11 +50,7 @@ public class CalculatorController {
                         "Не удалось получить расчёт за месяц с id " + id
                 );
             } else {
-                int month = monthData.getMonth() - 1;
-                int year = month == 0 ? monthData.getYear() - 1 : monthData.getYear();
-                month = month == 0 ? 12 : month;
-
-                tempPayload = MONTH_DATA_CONTROLLER.getMonthData(null, month, year).getPayload();
+                tempPayload = MONTH_DATA_CONTROLLER.getPrevMonthData(id).getPayload();
                 prevMonthData = tempPayload instanceof MonthData ? (MonthData) tempPayload : null;
 
                 if (prevMonthData == null) {
