@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.vych</groupId>
     <artifactId>HomeKeeperRest</artifactId>
-    <version>1.0.0-STABLE</version>
+    <version>1.0.1-STABLE</version>
     <name>HomeKeeperRest</name>
     <description>HK</description>
     <properties>
