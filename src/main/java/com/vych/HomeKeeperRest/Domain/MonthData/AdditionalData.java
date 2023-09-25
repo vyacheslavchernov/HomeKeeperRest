@@ -2,6 +2,9 @@ package com.vych.HomeKeeperRest.Domain.MonthData;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -11,6 +14,9 @@ import javax.persistence.*;
  */
 @Entity(name = "additionaldata")
 @Table(name = "additionaldata")
+@Getter
+@Setter
+@Accessors(chain = true)
 public class AdditionalData implements ResponsePayload {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,26 +28,4 @@ public class AdditionalData implements ResponsePayload {
 
     @JsonProperty("description")
     private String description;
-
-    public Long getId() {
-        return id;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public AdditionalData setAmount(double amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public AdditionalData setDescription(String description) {
-        this.description = description;
-        return this;
-    }
 }

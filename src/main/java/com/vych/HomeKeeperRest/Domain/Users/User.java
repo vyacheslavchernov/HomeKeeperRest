@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
 import com.vych.HomeKeeperRest.Domain.Views;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -12,8 +15,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@Accessors(chain = true)
 public class User implements ResponsePayload {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView(Views.NonSensitiveData.class)
@@ -47,76 +52,4 @@ public class User implements ResponsePayload {
     @JsonProperty("role")
     @JsonView(Views.NonSensitiveData.class)
     private Role role;
-
-    public Long getId() {
-        return id;
-    }
-
-    public User setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public User setFirstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public User setLastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public User setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public User setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public User setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public User setRole(Role role) {
-        this.role = role;
-        return this;
-    }
 }

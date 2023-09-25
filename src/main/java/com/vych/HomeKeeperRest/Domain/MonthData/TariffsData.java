@@ -2,6 +2,9 @@ package com.vych.HomeKeeperRest.Domain.MonthData;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -10,6 +13,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "tariffsdata")
+@Getter
+@Setter
+@Accessors(chain = true)
 public class TariffsData implements ResponsePayload {
 
     @Id
@@ -28,44 +34,4 @@ public class TariffsData implements ResponsePayload {
 
     @JsonProperty("drainage")
     private long drainage;
-
-    public Long getId() {
-        return id;
-    }
-
-    public long getHotwater() {
-        return hotwater;
-    }
-
-    public TariffsData setHotwater(long hotwater) {
-        this.hotwater = hotwater;
-        return this;
-    }
-
-    public long getColdwater() {
-        return coldwater;
-    }
-
-    public TariffsData setColdwater(long coldwater) {
-        this.coldwater = coldwater;
-        return this;
-    }
-
-    public long getElectricity() {
-        return electricity;
-    }
-
-    public TariffsData setElectricity(long electricity) {
-        this.electricity = electricity;
-        return this;
-    }
-
-    public long getDrainage() {
-        return drainage;
-    }
-
-    public TariffsData setDrainage(long drainage) {
-        this.drainage = drainage;
-        return this;
-    }
 }

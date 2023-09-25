@@ -19,7 +19,6 @@ import java.sql.Timestamp;
 @Aspect
 @Component
 public class LoggingAspect {
-
     private final LogsRepo LOGS_REPO;
 
     @Autowired LoggingAspect(LogsRepo logsRepo) {

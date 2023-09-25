@@ -24,7 +24,6 @@ import java.util.Collections;
  */
 @RestController
 public class MonthDataController {
-
     private final String CONTROLLER_ENDPOINT = "api/monthdata/";
 
     private final MonthDataRepo MONTH_DATA_REPO;
