@@ -6,7 +6,6 @@ import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
 import com.vych.HomeKeeperRest.ApiCore.ResponseUtil;
 import com.vych.HomeKeeperRest.ApiCore.Status;
 import com.vych.HomeKeeperRest.ApiCore.StatusCode;
-import com.vych.HomeKeeperRest.Aspects.Annotations.NeedLogs;
 import com.vych.HomeKeeperRest.Controllers.Calculator.ResponseBody.Calculation;
 import com.vych.HomeKeeperRest.Controllers.Calculator.ResponseBody.Communal;
 import com.vych.HomeKeeperRest.Controllers.MonthData.MonthDataController;
@@ -27,24 +26,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class CalculatorController {
     private final String CONTROLLER_ENDPOINT = "api/calculator/";
 
-    private final MonthDataController MONTH_DATA_CONTROLLER;
-
     @Autowired
-    public CalculatorController(
-            MonthDataRepo monthDataRepo,
-            CountersDataRepo countersDataRepo,
-            TariffsDataRepo tariffsDataRepo,
-            AdditionalDataRepo additionalDataRepo
-    ) {
-        MONTH_DATA_CONTROLLER = new MonthDataController(
-                monthDataRepo,
-                countersDataRepo,
-                tariffsDataRepo,
-                additionalDataRepo
-        );
-    }
+    private MonthDataController MONTH_DATA_CONTROLLER;
+    @Autowired
+    private MonthDataRepo monthDataRepo;
+    @Autowired
+    private CountersDataRepo countersDataRepo;
+    @Autowired
+    private TariffsDataRepo tariffsDataRepo;
+    @Autowired
+    private AdditionalDataRepo additionalDataRepo;
 
-    @NeedLogs
     @GetMapping(CONTROLLER_ENDPOINT + "calc")
     public ApiResponse getCalculation(@RequestParam(required = false) Long id) {
         if (id != null) {

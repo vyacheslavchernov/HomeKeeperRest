@@ -2,11 +2,10 @@ package com.vych.HomeKeeperRest.Domain.MonthData;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import javax.persistence.*;
 
 /**
  * Данные о показаниях счётчиков за определённый месяц
