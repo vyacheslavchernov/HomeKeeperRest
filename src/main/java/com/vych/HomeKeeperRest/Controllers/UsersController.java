@@ -19,7 +19,6 @@ import java.util.Collections;
 
 @RestController
 public class UsersController {
-
     private final String CONTROLLER_ENDPOINT = "api/users/";
 
     private final UserRepo USER_REPO;
@@ -123,7 +122,7 @@ public class UsersController {
                 .setId(user.getId())
                 .setUsername(user.getUsername())
                 .setPassword(user.getPassword())
-                .getRole().setName(user.getUsername());
+                .getRole().setUsername(user.getUsername());
 
         try {
             USER_REPO.save(userdata);

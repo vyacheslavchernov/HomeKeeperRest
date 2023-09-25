@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.vych.HomeKeeperRest.ApiCore.Payloads.ResponsePayload;
 import com.vych.HomeKeeperRest.Domain.Views;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -12,6 +15,9 @@ import javax.persistence.*;
  */
 @Entity(name = "authorities")
 @Table(name = "authorities")
+@Getter
+@Setter
+@Accessors(chain = true)
 public class Role implements ResponsePayload {
 
     @Id
@@ -21,22 +27,4 @@ public class Role implements ResponsePayload {
     @JsonProperty("authority")
     @JsonView(Views.AllData.class)
     private String authority;
-
-    public String getName() {
-        return username;
-    }
-
-    public Role setName(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public Role setAuthority(String authority) {
-        this.authority = authority;
-        return this;
-    }
 }
